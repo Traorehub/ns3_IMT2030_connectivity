@@ -123,4 +123,8 @@ projet-visuel-imt2030/
 
 ## Publication
 
-Commandes `git` : [PUBLIER_GITHUB.md](PUBLIER_GITHUB.md).
+```bash
+cd projet-visuel-imt2030
+git remote add origin https://github.com/Traorehub/VOTRE_NOM_DE_DEPOT.git
+git push -u origin main
+```

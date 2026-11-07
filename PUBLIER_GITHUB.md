@@ -1,42 +1,44 @@
-# Publier ce dossier sur GitHub
+# Publier sur GitHub (Traorehub)
 
-Depot recommande : **uniquement** `projet-visuel-imt2030/` (pas tout `ns-allinone-3.43`).
+Depot local : **commit initial deja fait** sur la branche `main`.
 
-## 1. Creer le depot sur github.com
+## 1. Creer le depot vide sur GitHub
 
-Nom suggere : `imt2030-ns3-zone-dense` ou `ns3-density-imt2030`.
+Compte : **Traorehub**
 
-## 2. Init git (PowerShell ou WSL)
+Nom suggere (meme esprit que `Federated_Learning_station_meteo`) :
+
+`ns3_IMT2030_zone_dense` ou `IMT2030_ns3_dense_wifi`
+
+Ne pas cocher README / .gitignore (deja presents localement).
+
+## 2. Push (WSL)
 
 ```bash
 cd /mnt/c/Users/MOH/Documents/Projet_Perso/ns-allinone-3.43/projet-visuel-imt2030
 
-git init
-git add README.md RAPPORT.md CAPTURES.md PUBLIER_GITHUB.md .gitignore
-git add scenario/ scripts/ docs/ sorties/resultats.csv sorties/*.svg sorties/portfolio_visuel.html
-git add docs/img/*.png
+git remote add origin https://github.com/Traorehub/ns3_IMT2030_zone_dense.git
 
-git commit -m "Simulation ns-3 : gestion de charge zone dense (cadre IMT-2030)"
-git branch -M main
-git remote add origin https://github.com/VOTRE_COMPTE/imt2030-ns3-zone-dense.git
 git push -u origin main
 ```
 
-Remplacez l'URL par votre depot.
+(Adapter l'URL si vous choisissez un autre nom.)
 
-## 3. Ce qui est deja pret pour le README
+## 3. A lire avant push
 
-- Captures terminal : `docs/img/`
-- Figures SVG : `sorties/image_topologie.svg`, `sorties/image_comparatif.svg`
-- Donnees : `sorties/resultats.csv`
-- Code source : `scenario/imt2030-density-gestion.cc`
+- **README.md** = rapport + presentation (style proche de [Federated_Learning_station_meteo](https://github.com/Traorehub/Federated_Learning_station_meteo)) : badges, resultats numerotes, visuels, prérequis, commandes.
+- **docs/BILAN.md** = synthese courte (equivalent du BILAN du depot FL).
+- **RAPPORT.md** redirige vers README.
 
-## 4. Installation ns-3 (recruteur / jury)
+## 4. Fichiers visuels inclus
 
-Copier `scenario/*` vers `ns-3.xx/scratch/projet-visuel-imt2030/` dans une installation ns-3.43+, puis :
+| Fichier | Role |
+|---------|------|
+| `docs/img/*.png` | Captures terminal GitHub |
+| `sorties/image_*.svg` | Figures dans README |
+| `sorties/portfolio_visuel.html` | Apercu complet (navigateur) |
+| `sorties/resultats.csv` | Donnees des runs |
 
-```bash
-./ns3 build scratch/projet-visuel-imt2030/imt2030-density-gestion
-```
+## 5. Apres le push
 
-Voir le README principal.
+Verifier sur GitHub que les images du README s'affichent (chemins relatifs `docs/img/` et `sorties/`).

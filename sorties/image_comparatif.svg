@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="380">
+<rect width="100%" height="100%" fill="#fafafa"/>
+<text x="60.0" y="32" font-family="Segoe UI,sans-serif" font-size="15">Comparatif baseline vs adaptive — 100 STA, 12.0000 s</text>
+<rect x="520.0" y="12" width="14" height="14" fill="#4a6fa5"/>
+<text x="540.0" y="24" font-size="12">baseline</text>
+<rect x="610.0" y="12" width="14" height="14" fill="#c45c3e"/>
+<text x="630.0" y="24" font-size="12">adaptive</text>
+<rect x="68.0" y="270.5" width="80.0" height="49.5" fill="#4a6fa5"/>
+<rect x="154.0" y="270.5" width="80.0" height="49.5" fill="#c45c3e"/>
+<text x="68.0" y="342.0" font-size="11">Livraison</text>
+<rect x="268.0" y="93.9" width="80.0" height="226.1" fill="#4a6fa5"/>
+<rect x="354.0" y="93.9" width="80.0" height="226.1" fill="#c45c3e"/>
+<text x="268.0" y="342.0" font-size="11">Jain</text>
+<rect x="468.0" y="320.0" width="80.0" height="0.0" fill="#4a6fa5"/>
+<rect x="554.0" y="187.2" width="80.0" height="132.8" fill="#c45c3e"/>
+<text x="468.0" y="342.0" font-size="11">Throttle/100</text>
+</svg>

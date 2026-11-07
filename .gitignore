@@ -1,0 +1,9 @@
+# Fichiers d'animation volumineux (regenerer en local)
+sorties/imt2030-animation.xml
+sorties/hotzone-animation.xml
+
+# Environnement
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

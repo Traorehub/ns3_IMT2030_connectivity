@@ -5,7 +5,7 @@
  *   baseline  - tous les terminaux emettent a debit fixe
  *   adaptive  - le controleur coupes/relance des emissions si la charge AP depasse un seuil
  *
- * Sortie : CSV de synthese dans outputDir (defaut ../projet-visuel-imt2030/sorties/resultats.csv)
+ * Sortie : CSV dans outputDir (defaut lab01 sorties, voir README lab01)
  */
 
 #include "ns3/applications-module.h"
@@ -223,7 +223,7 @@ main(int argc, char* argv[])
     uint32_t gridSide = 8;
     double simTime = 15.0;
     std::string policy = "adaptive";
-    std::string outputDir = "../projet-visuel-imt2030/sorties";
+    std::string outputDir = "../projet-visuel-imt2030/labs/lab01_wifi_dense/sorties";
     uint32_t packetSize = 512;
     uint32_t packetsPerSta = 40;
     uint32_t intervalMs = 80;

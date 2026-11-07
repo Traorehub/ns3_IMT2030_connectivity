@@ -1,0 +1,27 @@
+# Cursor (ne pas versionner)
+.cursor/
+.cursorrules
+**/.cursor/**
+*.mdc
+
+# Notes internes (le README suffit sur GitHub)
+PUBLIER_GITHUB.md
+RAPPORT.md
+CAPTURES.md
+commit-msg.txt
+
+# Animations volumineuses (regenerer en local)
+sorties/*.xml
+
+# Sorties regenerables (conserver csv, png, image_*.svg, portfolio)
+sorties/topologie.csv
+sorties/topologie.svg
+
+# Script remplace par generer_toutes_les_images.py
+scripts/generer_topologie_svg.py
+
+# Python / OS
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

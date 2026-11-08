@@ -1,9 +1,9 @@
-# Cadre IMT-2030 et honnetete du modele
+# Cadre IMT-2030 et honnêteté du modèle
 
-Le depot porte le nom `ns3_IMT2030_connectivity` parce qu'il organise une recherche sur la **connectivite massive** et la **gestion de charge en zone dense**, themes presents dans le cadre IMT-2030 et dans la recommandation ITU-R M.2160.
+Le dépôt porte le nom `ns3_IMT2030_connectivity` parce qu'il organise une recherche sur la connectivité massive et la gestion de charge en zone dense. Ces thèmes figurent dans le cadre IMT-2030 et dans la recommandation ITU-R M.2160.
 
-Le code livre dans le Lab 1 n'implemente pas la pile radio 6G. Il s'appuie sur Wi-Fi 802.11n dans ns-3 : helpers Yans, standard `WIFI_STANDARD_80211n`, debit `HtMcs7`, SSID `imt2030-dense-zone`. Ce choix permet de travailler la methodologie avant d'installer 5G-LENA.
+Le code livré dans les Labs 1 et 2 s'appuie sur Wi-Fi 802.11n dans ns-3. Les helpers sont ceux de Yans. Le standard est `WIFI_STANDARD_80211n`. Le débit de données est `HtMcs7` et le SSID est `imt2030-dense-zone`. Le Lab 2 réutilise ce même binaire et fait varier la taille de la grille ainsi que l'intervalle entre paquets.
 
-La traduction entre vision IMT et simulation se fait par une **zone representative** : une grille de `gridSide` par `gridSide` terminaux autour d'un point d'acces. Cette grille ne reproduit pas une surface d'un kilometre carre ni des millions de noeuds discrets.
+La traduction entre la vision IMT et la simulation passe par une zone représentative. Une grille de `gridSide` par `gridSide` terminaux entoure un point d'accès. Cette grille ne reproduit pas une surface d'un kilomètre carré, ni un dénombrement de plusieurs millions de nœuds discrets.
 
-Dans un memoire ou un entretien, vous pouvez formuler ainsi : le Lab 1 etudie les metriques et les politiques de charge sur un proxy Wi-Fi dense, tandis que les labs suivants rapprocheront le modele du NR puis des boucles de controle de type RAN intelligent.
+Dans un mémoire ou un entretien, la formulation suivante reste exacte. Les Labs 1 et 2 étudient les métriques et les politiques de charge sur un proxy Wi-Fi dense. Les labs suivants rapprocheront le modèle du NR, puis des boucles de contrôle de type RAN intelligent.

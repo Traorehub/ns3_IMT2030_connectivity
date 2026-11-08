@@ -211,7 +211,7 @@ AppendCsvRow(const std::string& path, const std::string& line, bool headerIfMiss
     }
     if (headerIfMissing && !exists)
     {
-        out << "timestamp,policy,gridSide,nSta,simTime_s,capacity_mbps,bytesRx,bytesOfferedEst,"
+        out << "timestamp,policy,gridSide,nSta,simTime_s,intervalMs,capacity_mbps,bytesRx,bytesOfferedEst,"
                "deliveryRatio,throttleEvents,jainFairness,flows\n";
     }
     out << line << "\n";
@@ -228,7 +228,7 @@ main(int argc, char* argv[])
     uint32_t packetsPerSta = 40;
     uint32_t intervalMs = 80;
     double capacityMbps = 8.0;
-    bool enableAnim = true;
+    bool enableAnim = false;
 
     CommandLine cmd(__FILE__);
     cmd.AddValue("gridSide", "Cote de la grille (nSta = gridSide^2)", gridSide);
@@ -406,9 +406,9 @@ main(int argc, char* argv[])
     const std::string csvPath = outputDir + "/resultats.csv";
     std::ostringstream row;
     row << std::fixed << std::setprecision(4) << Simulator::Now().GetSeconds() << ',' << policy
-        << ',' << gridSide << ',' << nSta << ',' << simTime << ',' << capacityMbps << ','
-        << bytesRx << ',' << bytesOffered << ',' << delivery << ',' << g_throttleEvents << ','
-        << jain << ',' << stats.size();
+        << ',' << gridSide << ',' << nSta << ',' << simTime << ',' << intervalMs << ','
+        << capacityMbps << ',' << bytesRx << ',' << bytesOffered << ',' << delivery << ','
+        << g_throttleEvents << ',' << jain << ',' << stats.size();
     AppendCsvRow(csvPath, row.str(), true);
 
     std::cout << "CSV : " << csvPath << "\n";

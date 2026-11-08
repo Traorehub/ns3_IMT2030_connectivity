@@ -1,0 +1,386 @@
+Nombre de runs : 24
+[1/24] gridSide=4 intervalMs=40 policy=baseline
+[0/2] Re-checking globbed directories...
+[1/2] Building CXX object scratch/projet-visuel-imt2030/CMakeFiles/scratch_projet-visuel-imt2030_imt2030-density-gestion.dir/imt2030-density-gestion.cc.o
+[2/2] Linking CXX executable /mnt/c/Users/MOH/Documents/Projet_Perso/ns-allinone-3.43/ns-3.43/build/scratch/projet-visuel-imt2030/ns3.43-imt2030-density-gestion-default
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 16  (4x4)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 327680
+Offre estimee (octets): 327680
+Taux de livraison     : 1.000
+Evenements throttle   : 0
+Indice Jain (debit)   : 1.000
+Flux IPv4 suivis      : 16
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[2/24] gridSide=4 intervalMs=40 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 16  (4x4)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 327680
+Offre estimee (octets): 327680
+Taux de livraison     : 1.000
+Evenements throttle   : 0
+Indice Jain (debit)   : 1.000
+Flux IPv4 suivis      : 16
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[3/24] gridSide=4 intervalMs=80 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 16  (4x4)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 327680
+Offre estimee (octets): 327680
+Taux de livraison     : 1.000
+Evenements throttle   : 0
+Indice Jain (debit)   : 1.000
+Flux IPv4 suivis      : 16
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[4/24] gridSide=4 intervalMs=80 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 16  (4x4)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 327680
+Offre estimee (octets): 327680
+Taux de livraison     : 1.000
+Evenements throttle   : 0
+Indice Jain (debit)   : 1.000
+Flux IPv4 suivis      : 16
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[5/24] gridSide=4 intervalMs=160 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 16  (4x4)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 327680
+Offre estimee (octets): 327680
+Taux de livraison     : 1.000
+Evenements throttle   : 0
+Indice Jain (debit)   : 1.000
+Flux IPv4 suivis      : 16
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[6/24] gridSide=4 intervalMs=160 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 16  (4x4)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 327680
+Offre estimee (octets): 327680
+Taux de livraison     : 1.000
+Evenements throttle   : 0
+Indice Jain (debit)   : 1.000
+Flux IPv4 suivis      : 16
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[7/24] gridSide=6 intervalMs=40 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 36  (6x6)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 701440
+Offre estimee (octets): 737280
+Taux de livraison     : 0.951
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.986
+Flux IPv4 suivis      : 36
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[8/24] gridSide=6 intervalMs=40 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 36  (6x6)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 701440
+Offre estimee (octets): 737280
+Taux de livraison     : 0.951
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.986
+Flux IPv4 suivis      : 36
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[9/24] gridSide=6 intervalMs=80 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 36  (6x6)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 713216
+Offre estimee (octets): 737280
+Taux de livraison     : 0.967
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.992
+Flux IPv4 suivis      : 36
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[10/24] gridSide=6 intervalMs=80 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 36  (6x6)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 713216
+Offre estimee (octets): 737280
+Taux de livraison     : 0.967
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.992
+Flux IPv4 suivis      : 36
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[11/24] gridSide=6 intervalMs=160 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 36  (6x6)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 717312
+Offre estimee (octets): 737280
+Taux de livraison     : 0.973
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.993
+Flux IPv4 suivis      : 36
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[12/24] gridSide=6 intervalMs=160 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 36  (6x6)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 717312
+Offre estimee (octets): 737280
+Taux de livraison     : 0.973
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.993
+Flux IPv4 suivis      : 36
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[13/24] gridSide=8 intervalMs=40 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 64  (8x8)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 572928
+Offre estimee (octets): 1310720
+Taux de livraison     : 0.437
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.825
+Flux IPv4 suivis      : 64
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[14/24] gridSide=8 intervalMs=40 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 64  (8x8)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 572928
+Offre estimee (octets): 1310720
+Taux de livraison     : 0.437
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.825
+Flux IPv4 suivis      : 64
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[15/24] gridSide=8 intervalMs=80 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 64  (8x8)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 742912
+Offre estimee (octets): 1310720
+Taux de livraison     : 0.567
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.939
+Flux IPv4 suivis      : 64
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[16/24] gridSide=8 intervalMs=80 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 64  (8x8)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 742912
+Offre estimee (octets): 1310720
+Taux de livraison     : 0.567
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.939
+Flux IPv4 suivis      : 64
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[17/24] gridSide=8 intervalMs=160 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 64  (8x8)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 818688
+Offre estimee (octets): 1310720
+Taux de livraison     : 0.625
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.977
+Flux IPv4 suivis      : 64
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[18/24] gridSide=8 intervalMs=160 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 64  (8x8)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 818688
+Offre estimee (octets): 1310720
+Taux de livraison     : 0.625
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.977
+Flux IPv4 suivis      : 64
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[19/24] gridSide=10 intervalMs=40 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 100  (10x10)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 381440
+Offre estimee (octets): 2048000
+Taux de livraison     : 0.186
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.851
+Flux IPv4 suivis      : 100
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[20/24] gridSide=10 intervalMs=40 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 100  (10x10)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 381440
+Offre estimee (octets): 2048000
+Taux de livraison     : 0.186
+Evenements throttle   : 50
+Indice Jain (debit)   : 0.851
+Flux IPv4 suivis      : 100
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[21/24] gridSide=10 intervalMs=80 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 100  (10x10)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 591872
+Offre estimee (octets): 2048000
+Taux de livraison     : 0.289
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.776
+Flux IPv4 suivis      : 100
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[22/24] gridSide=10 intervalMs=80 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 100  (10x10)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 591872
+Offre estimee (octets): 2048000
+Taux de livraison     : 0.289
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.776
+Flux IPv4 suivis      : 100
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[23/24] gridSide=10 intervalMs=160 policy=baseline
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 100  (10x10)
+Politique : baseline  |  duree : 10 s
+
+Octets recus (AP)     : 724480
+Offre estimee (octets): 2048000
+Taux de livraison     : 0.354
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.819
+Flux IPv4 suivis      : 100
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv
+[24/24] gridSide=10 intervalMs=160 policy=adaptive
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 100  (10x10)
+Politique : adaptive  |  duree : 10 s
+
+Octets recus (AP)     : 724480
+Offre estimee (octets): 2048000
+Taux de livraison     : 0.354
+Evenements throttle   : 0
+Indice Jain (debit)   : 0.819
+Flux IPv4 suivis      : 100
+
+CSV : ../projet-visuel-imt2030/labs/lab02_campagne/sorties/resultats.csv

@@ -1,10 +1,12 @@
-# Lab 1 — Zone dense Wi-Fi (proxy connectivite massive)
+# Lab 1 — Zone dense Wi-Fi (proxy de connectivité massive)
 
-Ce laboratoire heberge le scenario principal `imt2030-density-gestion.cc`. La couche d'acces est du Wi-Fi 802.11n avec `YansWifiPhyHelper`, gestionnaire de debit `HtMcs7` et SSID `imt2030-dense-zone`. Le cadre IMT-2030 s'applique au **probleme** (densite, comparaison baseline / adaptive), pas au standard radio simule.
+Ce laboratoire héberge le scénario principal `imt2030-density-gestion.cc`. La couche d'accès est du Wi-Fi 802.11n, avec `YansWifiPhyHelper`, le débit `HtMcs7` et le SSID `imt2030-dense-zone`. Le cadre IMT-2030 qualifie la question de densité et de gestion de charge. Le standard radio simulé reste le Wi-Fi.
 
-## Stack radio effective (a citer en rapport)
+Le Lab 2 réutilise ce même binaire pour un plan factoriel. Son rapport est `docs/latex/rapport_lab02.pdf`.
 
-Le standard fixe est `WIFI_STANDARD_80211n`. Le canal et la physique passent par Yans. Les terminaux envoient du UDP vers un point d'acces. Aucun module NR ni 5G-LENA n'est charge dans ce lab.
+## Pile radio à citer
+
+Le standard fixé est `WIFI_STANDARD_80211n`. Le canal et la physique passent par Yans. Les terminaux envoient du UDP vers un point d'accès. Aucun module NR ni 5G-LENA n'est chargé dans ce lab.
 
 ## Installation
 
@@ -15,16 +17,20 @@ cd /chemin/vers/ns-3.43
 ./ns3 build scratch/projet-visuel-imt2030/imt2030-density-gestion
 ```
 
-Les sorties par defaut vont dans `labs/lab01_wifi_dense/sorties/` lorsque vous executez depuis l'arborescence ns-allinone habituelle. Vous pouvez changer le chemin avec `--outputDir`.
+Les sorties par défaut vont dans `labs/lab01_wifi_dense/sorties/` lorsque vous exécutez depuis l'arborescence ns-allinone habituelle. Le chemin se change avec `--outputDir`.
 
-## Campagne de reference
+## Campagne de référence
 
 ```bash
 ./ns3 run "scratch/projet-visuel-imt2030/imt2030-density-gestion --policy=baseline --gridSide=10 --simTime=12 --intervalMs=40"
 ./ns3 run "scratch/projet-visuel-imt2030/imt2030-density-gestion --policy=adaptive --gridSide=10 --simTime=12 --intervalMs=40"
 ```
 
-Sur cette campagne, la livraison vers l'AP est d'environ 0,186 pour les deux politiques. La politique adaptive enregistre 50 evenements de gestion alors que la baseline n'en enregistre aucun.
+Sur cette campagne, la livraison vers le point d'accès est d'environ 0,186 pour les deux politiques. La politique adaptive enregistre 50 événements de gestion, alors que la baseline n'en enregistre aucun.
+
+## Schéma du CSV
+
+Les nouveaux runs écrivent la colonne `intervalMs`. Le fichier `sorties/resultats.csv` de ce lab a été constitué avant cet ajout. Il ne faut donc pas le fusionner tel quel avec le CSV du Lab 2. La campagne factorielle à jour est `labs/lab02_campagne/sorties/resultats.csv`.
 
 ## Figures
 
@@ -38,8 +44,8 @@ Le script `scripts/generer_toutes_les_images.py` lit `sorties/resultats.csv` et 
 
 ## Politique adaptive (version 0)
 
-Toutes les 0,5 s, le controleur estime le rapport entre l'offre des terminaux actifs et une capacite de reference. Il met une fraction des terminaux en veille lorsque le seuil haut est depasse, puis en reactive un lorsque le seuil bas est atteint.
+Toutes les 0,5 s, le contrôleur estime le rapport entre l'offre des terminaux actifs et une capacité de référence. Il met une fraction des terminaux en veille lorsque le seuil haut est dépassé, puis il en réactive un lorsque le seuil bas est atteint.
 
 ## Limites du lab
 
-La grille est fixe. La capacite de reference est un parametre. L'offre estimee se fonde sur le nombre de paquets prevus. Ces limites doivent figurer dans toute presentation scientifique.
+La grille est fixe. La capacité de référence est un paramètre. L'offre estimée se fonde sur le nombre de paquets prévus. Ces limites doivent figurer dans toute présentation scientifique. Le rapport est [docs/latex/rapport_lab01.pdf](../../docs/latex/rapport_lab01.pdf).

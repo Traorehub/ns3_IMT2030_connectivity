@@ -11,14 +11,20 @@ CAPTURES.md
 commit-msg.txt
 
 # Animations volumineuses (regenerer en local)
-sorties/*.xml
+**/*.xml
 
-# Sorties regenerables (conserver csv, png, image_*.svg, portfolio)
-sorties/topologie.csv
-sorties/topologie.svg
+# Derniere topologie seulement, pas un resume de campagne
+**/topologie.csv
+**/topologie.svg
 
 # Script remplace par generer_toutes_les_images.py
-scripts/generer_topologie_svg.py
+**/generer_topologie_svg.py
+
+# LaTeX
+docs/latex/*.aux
+docs/latex/*.log
+docs/latex/*.out
+docs/latex/*.toc
 
 # Python / OS
 __pycache__/

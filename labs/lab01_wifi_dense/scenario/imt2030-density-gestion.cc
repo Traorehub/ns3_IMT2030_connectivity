@@ -3,7 +3,8 @@
  *
  * Politiques :
  *   baseline  - tous les terminaux emettent a debit fixe
- *   adaptive  - le controleur coupes/relance des emissions si la charge AP depasse un seuil
+ *   adaptive  - au plus K terminaux emettent, K fixe calcule sur la capacite de reference
+ *   feedback  - K part de la meme valeur, puis monte ou descend selon la livraison mesuree
  *
  * Sortie : CSV dans outputDir (defaut lab01 sorties, voir README lab01)
  */
@@ -35,9 +36,10 @@ NS_LOG_COMPONENT_DEFINE("Imt2030DensityGestion");
 struct StaCtx
 {
     Ptr<Node> node;
-    Ptr<Application> clientApp;
+    Ptr<Socket> socket;
     uint32_t id;
     bool throttled;
+    uint32_t sent;
     uint64_t packetsOffered;
 };
 
@@ -52,6 +54,12 @@ static Time g_measureWindow = Seconds(0.5);
 static uint32_t g_packetSize = 512;
 static double g_simTimeEnd = 15.0;
 static uint32_t g_intervalMs = 80;
+static uint32_t g_feedbackCap = 1;
+static uint64_t g_prevRx = 0;
+static uint64_t g_prevSentPackets = 0;
+static bool g_feedbackReady = false;
+static double g_feedbackLow = 0.35;
+static double g_feedbackHigh = 0.50;
 
 static uint64_t
 BytesOfferedEstimate()
@@ -59,88 +67,127 @@ BytesOfferedEstimate()
     uint64_t sum = 0;
     for (const auto& s : g_stas)
     {
-        sum += s.packetsOffered;
+        sum += s.sent;
     }
     return sum * g_packetSize;
 }
 
-static void
-ThrottleSta(StaCtx& s, bool throttle)
+static uint32_t
+ComputeMaxActive()
 {
-    if (!s.clientApp)
+    const double intervalSec = std::max(1e-6, static_cast<double>(g_intervalMs) / 1000.0);
+    const double pktBits = static_cast<double>(g_packetSize) * 8.0;
+    const double raw =
+        static_cast<double>(g_capacityBps) * intervalSec / pktBits * g_highUtil;
+    uint32_t cap = static_cast<uint32_t>(std::floor(raw));
+    if (cap < 1)
+    {
+        cap = 1;
+    }
+    if (cap > g_stas.size())
+    {
+        cap = static_cast<uint32_t>(g_stas.size());
+    }
+    return cap;
+}
+
+static void
+SendSta(uint32_t index)
+{
+    if (index >= g_stas.size() || Simulator::Now() >= Seconds(g_simTimeEnd))
     {
         return;
     }
-    ApplicationContainer one;
-    one.Add(s.clientApp);
+    StaCtx& sta = g_stas[index];
+    if (!sta.throttled && sta.sent < sta.packetsOffered && sta.socket)
+    {
+        sta.socket->Send(Create<Packet>(g_packetSize));
+        ++sta.sent;
+    }
+    if (sta.sent < sta.packetsOffered &&
+        Simulator::Now() + MilliSeconds(g_intervalMs) < Seconds(g_simTimeEnd))
+    {
+        Simulator::Schedule(MilliSeconds(g_intervalMs), &SendSta, index);
+    }
+}
 
-    if (throttle && !s.throttled)
+static void
+ApplyAdmission(uint32_t cap)
+{
+    for (auto& sta : g_stas)
     {
-        one.Stop(Simulator::Now());
-        s.throttled = true;
-        ++g_throttleEvents;
+        const bool admit = sta.id < cap;
+        if (admit && sta.throttled)
+        {
+            sta.throttled = false;
+            ++g_throttleEvents;
+        }
+        else if (!admit && !sta.throttled)
+        {
+            sta.throttled = true;
+            ++g_throttleEvents;
+        }
     }
-    else if (!throttle && s.throttled)
+}
+
+static uint64_t
+CountSentPackets()
+{
+    uint64_t sum = 0;
+    for (const auto& sta : g_stas)
     {
-        one.Start(Simulator::Now());
-        one.Stop(Seconds(g_simTimeEnd));
-        s.throttled = false;
-        ++g_throttleEvents;
+        sum += sta.sent;
     }
+    return sum;
 }
 
 static void
 DensityControlStep()
 {
-    if (g_policy == "baseline")
+    if (g_policy == "adaptive")
     {
-        return;
+        const uint32_t cap = ComputeMaxActive();
+        g_feedbackCap = cap;
+        ApplyAdmission(cap);
     }
-
-    uint32_t activeCount = 0;
-    uint32_t throttledCount = 0;
-    for (const auto& s : g_stas)
+    else if (g_policy == "feedback")
     {
-        if (s.throttled)
+        if (!g_feedbackReady)
         {
-            ++throttledCount;
+            g_feedbackCap = ComputeMaxActive();
+            ApplyAdmission(g_feedbackCap);
+            g_prevRx = g_sink ? g_sink->GetTotalRx() : 0;
+            g_prevSentPackets = CountSentPackets();
+            g_feedbackReady = true;
         }
         else
         {
-            ++activeCount;
-        }
-    }
-
-    const double intervalSec = std::max(1e-6, static_cast<double>(g_intervalMs) / 1000.0);
-    const double pktBits = static_cast<double>(g_packetSize) * 8.0;
-    const double offeredBps = activeCount * (pktBits / intervalSec);
-    const double rho = offeredBps / static_cast<double>(g_capacityBps);
-
-    if (rho > g_highUtil)
-    {
-        // Couper un quart des terminaux actifs (round-robin par id de fenetre)
-        const double win = g_measureWindow.GetSeconds();
-        const uint32_t epoch = static_cast<uint32_t>(Simulator::Now().GetSeconds() / win);
-        for (auto& s : g_stas)
-        {
-            if (!s.throttled && ((s.id + epoch) % 4 == 0))
+            const uint64_t rx = g_sink->GetTotalRx();
+            const uint64_t sent = CountSentPackets();
+            const uint64_t deltaRx = (rx >= g_prevRx) ? (rx - g_prevRx) : 0;
+            const uint64_t deltaSent =
+                (sent >= g_prevSentPackets) ? (sent - g_prevSentPackets) : 0;
+            if (deltaSent > 0)
             {
-                ThrottleSta(s, true);
+                const double offered = static_cast<double>(deltaSent * g_packetSize);
+                const double ratio = static_cast<double>(deltaRx) / offered;
+                if (ratio < g_feedbackLow && g_feedbackCap > 1)
+                {
+                    const uint32_t step = std::max<uint32_t>(1, g_feedbackCap / 6);
+                    g_feedbackCap = (g_feedbackCap > step) ? (g_feedbackCap - step) : 1;
+                }
+                else if (ratio > g_feedbackHigh && g_feedbackCap < g_stas.size())
+                {
+                    const uint32_t step = std::max<uint32_t>(1, g_feedbackCap / 12);
+                    const uint32_t grown = g_feedbackCap + step;
+                    g_feedbackCap = (grown < g_stas.size()) ? grown : static_cast<uint32_t>(g_stas.size());
+                }
+                ApplyAdmission(g_feedbackCap);
             }
+            g_prevRx = rx;
+            g_prevSentPackets = sent;
         }
     }
-    else if (rho < g_lowUtil && throttledCount > 0)
-    {
-        for (auto& s : g_stas)
-        {
-            if (s.throttled)
-            {
-                ThrottleSta(s, false);
-                break;
-            }
-        }
-    }
-
     Simulator::Schedule(g_measureWindow, &DensityControlStep);
 }
 
@@ -212,7 +259,7 @@ AppendCsvRow(const std::string& path, const std::string& line, bool headerIfMiss
     if (headerIfMissing && !exists)
     {
         out << "timestamp,policy,gridSide,nSta,simTime_s,intervalMs,capacity_mbps,bytesRx,bytesOfferedEst,"
-               "deliveryRatio,throttleEvents,jainFairness,flows\n";
+               "deliveryRatio,throttleEvents,jainFairness,flows,finalCap\n";
     }
     out << line << "\n";
 }
@@ -233,7 +280,9 @@ main(int argc, char* argv[])
     CommandLine cmd(__FILE__);
     cmd.AddValue("gridSide", "Cote de la grille (nSta = gridSide^2)", gridSide);
     cmd.AddValue("simTime", "Duree de simulation (s)", simTime);
-    cmd.AddValue("policy", "Politique : baseline | adaptive", policy);
+    cmd.AddValue("policy", "Politique : baseline | adaptive | feedback", policy);
+    cmd.AddValue("feedbackLow", "Seuil bas de livraison pour reduire K", g_feedbackLow);
+    cmd.AddValue("feedbackHigh", "Seuil haut de livraison pour augmenter K", g_feedbackHigh);
     cmd.AddValue("outputDir", "Repertoire de sortie", outputDir);
     cmd.AddValue("packetSize", "Taille UDP (octets)", packetSize);
     cmd.AddValue("packetsPerSta", "Paquets max par STA", packetsPerSta);
@@ -244,9 +293,9 @@ main(int argc, char* argv[])
     cmd.AddValue("enableAnim", "Exporter XML NetAnim (1/0)", enableAnim);
     cmd.Parse(argc, argv);
 
-    if (policy != "baseline" && policy != "adaptive")
+    if (policy != "baseline" && policy != "adaptive" && policy != "feedback")
     {
-        std::cerr << "policy doit etre baseline ou adaptive\n";
+        std::cerr << "policy doit etre baseline, adaptive ou feedback\n";
         return 1;
     }
     if (gridSide < 2)
@@ -332,29 +381,28 @@ main(int argc, char* argv[])
     g_stas.reserve(nSta);
     for (uint32_t i = 0; i < nSta; ++i)
     {
-        UdpClientHelper client(apAddr, port);
-        client.SetAttribute("MaxPackets", UintegerValue(packetsPerSta));
-        client.SetAttribute("Interval", TimeValue(MilliSeconds(intervalMs)));
-        client.SetAttribute("PacketSize", UintegerValue(packetSize));
-        ApplicationContainer one = client.Install(staNodes.Get(i));
-        one.Start(Seconds(1.0 + (i % 7) * 0.05));
-        one.Stop(Seconds(simTime));
+        Ptr<Socket> sock = Socket::CreateSocket(staNodes.Get(i), UdpSocketFactory::GetTypeId());
+        sock->Connect(InetSocketAddress(apAddr, port));
 
         StaCtx ctx;
         ctx.node = staNodes.Get(i);
-        ctx.clientApp = one.Get(0);
+        ctx.socket = sock;
         ctx.id = i;
         ctx.throttled = false;
+        ctx.sent = 0;
         ctx.packetsOffered = packetsPerSta;
         g_stas.push_back(ctx);
+        const double stagger = static_cast<double>(i) * static_cast<double>(intervalMs) /
+                               1000.0 / static_cast<double>(nSta);
+        Simulator::Schedule(Seconds(1.0 + stagger), &SendSta, i);
     }
 
     FlowMonitorHelper fmh;
     Ptr<FlowMonitor> monitor = fmh.InstallAll();
 
-    if (policy == "adaptive")
+    if (policy == "adaptive" || policy == "feedback")
     {
-        Simulator::Schedule(Seconds(1.5), &DensityControlStep);
+        Simulator::Schedule(Seconds(0.5), &DensityControlStep);
     }
 
     const std::string topoPath = outputDir + "/topologie.csv";
@@ -401,14 +449,17 @@ main(int argc, char* argv[])
               << "\n";
     std::cout << "Evenements throttle   : " << g_throttleEvents << "\n";
     std::cout << "Indice Jain (debit)   : " << std::setprecision(3) << jain << "\n";
-    std::cout << "Flux IPv4 suivis      : " << stats.size() << "\n\n";
+    std::cout << "Flux IPv4 suivis      : " << stats.size() << "\n";
+    std::cout << "Plafond final         : "
+              << ((policy == "baseline") ? nSta : g_feedbackCap) << "\n\n";
 
     const std::string csvPath = outputDir + "/resultats.csv";
     std::ostringstream row;
     row << std::fixed << std::setprecision(4) << Simulator::Now().GetSeconds() << ',' << policy
         << ',' << gridSide << ',' << nSta << ',' << simTime << ',' << intervalMs << ','
         << capacityMbps << ',' << bytesRx << ',' << bytesOffered << ',' << delivery << ','
-        << g_throttleEvents << ',' << jain << ',' << stats.size();
+        << g_throttleEvents << ',' << jain << ',' << stats.size() << ','
+        << ((policy == "baseline") ? nSta : g_feedbackCap);
     AppendCsvRow(csvPath, row.str(), true);
 
     std::cout << "CSV : " << csvPath << "\n";

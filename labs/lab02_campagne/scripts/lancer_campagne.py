@@ -21,6 +21,11 @@ SIM_TIME = 10
 
 
 def main() -> int:
+    print(
+        "Attention : le source actuel implémente l'emetteur du Lab 3. "
+        "Ce script ecrase le CSV historique du Lab 2, produit avec UdpClient.",
+        flush=True,
+    )
     OUT_ABS.mkdir(parents=True, exist_ok=True)
     csv_path = OUT_ABS / "resultats.csv"
     if csv_path.exists():

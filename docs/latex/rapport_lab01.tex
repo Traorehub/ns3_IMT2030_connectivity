@@ -38,7 +38,7 @@ Simulation ns-3, zone dense et gestion heuristique de charge}
 
 Le dépôt GitHub \texttt{ns3\_IMT2030\_connectivity} organise une recherche sur la connectivité massive et la gestion de charge en zone dense, dans une perspective inspirée du cadre IMT-2030 et de la recommandation ITU-R M.2160. Le simulateur utilisé est ns-3.43, exécuté sous WSL Ubuntu à partir de l'arborescence ns-allinone.
 
-Ce document décrit le Lab 1, qui est aujourd'hui le seul laboratoire entièrement livré dans le dépôt. Les Labs 2 à 5 sont planifiés dans \texttt{PLANNING.md} et ne comportent pas encore de code exécutable. L'objectif du Lab 1 est de montrer une méthodologie reproductible avant d'aborder la couche NR ou les boucles de contrôle de type RAN intelligent.
+Ce document décrit le Lab 1. Les Labs 2 et 3 sont livrés dans leurs propres rapports. Les Labs 4 et 5 restent au stade du cadrage, dans \texttt{PLANNING.md}. L'objectif du Lab 1 est de montrer une méthodologie reproductible avant d'aborder la couche NR ou les boucles de contrôle de type RAN intelligent.
 
 \section{Honnêteté du modèle radio}
 
@@ -86,6 +86,8 @@ où la capacité de référence vaut 8~Mbit/s par défaut (\texttt{capacityMbps}
   \item \texttt{throttleEvents} : nombre d'actions Stop ou Start ;
   \item \texttt{jainFairness} : indice de Jain sur les octets reçus par flux FlowMonitor.
 \end{itemize}
+
+Ces définitions décrivent la version 0 du scénario. Le rapport du Lab 3, dans la section « Lecture concrète des métriques », indique comment lire les mêmes colonnes après le changement d'émetteur, avec un exemple en nombre de paquets.
 
 \section{Extraits de code stratégiques}
 

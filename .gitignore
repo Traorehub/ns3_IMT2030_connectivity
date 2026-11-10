@@ -17,6 +17,10 @@ commit-msg.txt
 **/topologie.csv
 **/topologie.svg
 
+# Sonde anterieure a la campagne officielle du Lab 3
+**/sorties_probe/
+**/sorties_sonde/
+
 # Script remplace par generer_toutes_les_images.py
 **/generer_topologie_svg.py
 

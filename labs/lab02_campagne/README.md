@@ -1,6 +1,8 @@
-# Lab 2 — Campagne paramétrique
+# Lab 2 - Campagne paramétrique
 
 Ce laboratoire exécute un plan factoriel sur le scénario Wi-Fi du Lab 1. Les facteurs sont `gridSide` (4, 6, 8, 10), `intervalMs` (40, 80, 160) et `policy` (baseline, adaptive). La durée est fixée à 10 s. Chaque terminal envoie au plus 40 paquets de 512 octets. L'animation NetAnim est désactivée.
+
+Les chiffres ci-dessous proviennent de l'émetteur `UdpClient`. Le source `imt2030-density-gestion.cc` implémente désormais l'émetteur du Lab 3. Relancer `scripts/lancer_campagne.py` écrase `sorties/resultats.csv` et ne reproduit pas ce tableau. Le script affiche un avertissement avant d'effacer le fichier.
 
 ## Scripts
 

@@ -1,0 +1,99 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{longtable}
+
+\geometry{margin=2.2cm}
+\setlength{\emergencystretch}{2em}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\title{Rapport général\\
+\large Connectivité dense et contrôle d'admission\\
+sur un proxy Wi-Fi, dépôt \texttt{ns3\_IMT2030\_connectivity}}
+\author{Traorehub, travail de recherche en cours}
+\date{Novembre 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Question}
+
+Le dépôt organise une progression sur la gestion de charge en zone dense, dans la perspective IMT-2030. La question à laquelle les runs répondent est plus étroite que cette perspective. Sur une grille Wi-Fi de 16 à 100 terminaux, une règle qui limite ou réordonne les émetteurs modifie-t-elle le nombre de paquets UDP qui arrivent au point d'accès, et à quel prix sur le taux de livraison des paquets réellement émis ?
+
+\section{Trois niveaux à ne pas confondre}
+
+La vision retenue dans le dépôt, dans la ligne de la recommandation ITU-R M.2160, vise un ordre de grandeur d'un million à cent millions d'équipements par kilomètre carré. Le modèle simulé est une grille carrée, d'espacement 5~m, autour d'un seul point d'accès. Pour 100 terminaux, le carré occupé a 45~m de côté, et la densité spatiale vaut environ $4{,}9\times 10^{4}$ terminaux par kilomètre carré. Cette densité est environ vingt fois sous un million, et environ deux mille fois sous cent millions. Les runs ne sont donc pas des cas extrêmes au sens IMT-2030.
+
+La mesure des Labs 1, 2, 3 et 5 est celle de ns-3.43 sur Wi-Fi 802.11n, avec la couche Yans, le débit \texttt{HtMcs7} et le SSID \texttt{imt2030-dense-zone}. Le Lab 4 a ensuite compilé 5G-LENA v3.3.1 dans le même arbre et mesuré une cellule de 16 terminaux. Les grilles de 36 et de 100 terminaux s'y arrêtent dans le RRC idéal avant le trafic. Le cas le plus chargé du plan Wi-Fi, 100 terminaux émettant toutes les 40~ms, décrit une cellule Wi-Fi dont la densité reste d'environ 50\,000 terminaux par kilomètre carré.
+
+\section{Comment lire un chiffre}
+
+Un paquet utile pèse 512 octets. Diviser un volume par 512 donne un nombre de paquets. Le taux de livraison divise les octets arrivés au point d'accès par les octets réellement passés à l'envoi. Une station réduite au silence n'entre pas dans ce dénominateur. Le taux peut donc monter alors que le nombre de paquets arrivés baisse. L'admission fixe du Lab 3 produit cette combinaison sur les cellules où le plafond retire des stations.
+
+L'indice de Jain vaut 1 lorsque les flux comptés ont reçu le même volume. Le CSV ne compte que les flux de volume strictement positif. Les stations qui n'ont rien reçu n'abaissent pas l'indice. Le compteur d'événements additionne les changements d'état d'admission. Chaque passage d'une station vers l'état silencieux, ou le retour vers l'état admis, ajoute un événement. Sur l'admission fixe à 100 terminaux et 40~ms, les 76 événements sont les 76 stations exclues une seule fois. Dans la boucle, une station peut changer plusieurs fois, et le compteur peut alors dépasser le nombre de terminaux. Le CSV du Lab 5 en donne un exemple, avec 134 événements pour 100 terminaux à 160~ms. La colonne des flux compte les stations qui ont émis au moins un paquet. Le plafond final est la valeur de la loi à la fin des 10~s. Il n'est pas le nombre de stations simultanément actives pendant toute la durée.
+
+La capacité de 3~Mbit/s ne mesure pas le débit \texttt{HtMcs7}. Elle sert à calculer le plafond initial
+\[
+  K = \left\lfloor \frac{3\times 10^{6}\times \Delta \times 0{,}82}{512 \times 8} \right\rfloor,
+\]
+où $\Delta$ est l'intervalle en secondes. Ce plafond vaut 24 à 40~ms, 48 à 80~ms et 96 à 160~ms, puis il est borné par le nombre de terminaux.
+
+\section{Ce que chaque laboratoire a établi}
+
+Le Lab 1 a fixé le scénario, le CSV et la distinction entre une baseline où tout le monde émet et une politique qui prétend réduire la charge. Sur la version initiale, appeler l'arrêt et le redémarrage d'un \texttt{UdpClient} déjà lancé n'annulait pas l'émission planifiée. Le compteur d'événements pouvait augmenter sans que les octets reçus changent.
+
+Le Lab 2 a transformé cette comparaison en plan de 24 runs, sur quatre tailles de grille et trois intervalles. Avec l'émetteur \texttt{UdpClient}, les deux politiques coïncidaient sur 23 cellules. Sur 100 terminaux et 40~ms, 50 événements étaient enregistrés et les octets reçus restaient identiques, à 381\,440. La livraison tombait de 1 sur 16 terminaux à 0,186 sur 100 terminaux à 40~ms. La densité et l'espacement des paquets dominaient le contrôleur. Ce CSV est une archive. Le source actuel ne le reproduit plus, parce que l'émetteur a été remplacé.
+
+Le Lab 3 a remplacé \texttt{UdpClient} par des sockets planifiés. Une station silencieuse ne consomme pas son budget. L'admission fixe laisse émettre les stations d'indice inférieur à $K$. Sur 100 terminaux et 40~ms, la baseline de ce nouvel émetteur reçoit 361\,472 octets, soit 706 paquets sur 4\,000, pour un taux de 0,177. L'admission reçoit 287\,744 octets, soit 562 paquets sur 960, pour un taux de 0,585, avec 24 flux. Le taux des paquets émis monte. Le service total de la cellule baisse. Le même sens apparaît dans les six cellules où le plafond est contraignant.
+
+Le Lab 4 compile 5G-LENA v3.3.1, étiquette prévue pour ns-3.42, dans cet arbre ns-3.43. Sur 16 terminaux et 40~ms, les trois politiques reçoivent 327\,680 octets et livrent tous les paquets. Sur 36 et 100 terminaux, la simulation s'interrompt à 30~ms avec l'assertion RNTI 0 du RRC idéal. Le plan factoriel complet n'a donc pas été exécuté.
+
+Le Lab 5 ajoute la politique \texttt{feedback}. Le plafond part de la valeur du Lab 3. Toutes les 0,5~s, il baisse si la livraison de la fenêtre est inférieure à 0,35, et il monte si elle est supérieure à 0,50. La sonde \texttt{adaptive} sur la cellule de référence a retrouvé exactement les chiffres du Lab 3. La boucle peut donc être comparée à cette archive.
+
+\section{Synthèse sur la cellule la plus chargée}
+
+À 100 terminaux et 40~ms, les trois politiques du binaire actuel se lisent en paquets de 512 octets.
+
+\begin{longtable}{@{}lrrrr@{}}
+\caption{Cent terminaux, intervalle 40~ms, durée 10~s.}\\
+\toprule
+Politique & Paquets émis & Paquets reçus & Taux & Flux \\
+\midrule
+\endfirsthead
+baseline & 4\,000 & 706 & 0,177 & 100 \\
+adaptive & 960 & 562 & 0,585 & 24 \\
+feedback & 2\,063 & 1\,690 & 0,819 & 56 \\
+\bottomrule
+\end{longtable}
+
+La baseline perd la majeure partie des paquets parce que les 100 stations émettent ensemble. L'admission fixe protège 24 stations et laisse les 76 autres à zéro, puis le canal reste peu utilisé après le budget des 24. La boucle fermée fait arriver 1\,690 paquets, soit plus du double de la baseline et environ le triple de l'admission fixe, avec un taux de 0,819 sur ce qui a été émis. Cinquante-six stations ont produit du trafic. Quarante-quatre n'ont rien émis. Le gain de volume ne signifie donc pas que toute la population a été servie.
+
+Sur l'ensemble des douze cellules du Lab 5, le volume reçu par la boucle est supérieur ou égal au volume de la baseline, et supérieur ou égal au volume de l'admission fixe. L'égalité concerne les 16 terminaux, où les trois politiques reçoivent 327\,680 octets et livrent tous les paquets. Sur les neuf autres cellules, le volume de la boucle est strictement supérieur aux deux références. Le taux de la boucle est lui aussi supérieur ou égal à celui de la baseline, avec la même égalité sur 16 terminaux. Il passe sous le taux de l'admission fixe sur une seule cellule, 64 terminaux à 80~ms, où la boucle reçoit toutefois davantage d'octets, 745\,472 contre 695\,808. Le détail est dans le rapport du Lab 5.
+
+\section{Pourquoi le volume peut monter}
+
+Le budget de 40 paquets est court. À 40~ms, il tient en environ 1,6~s. Une station qui a fini s'arrête, même si elle reste admise. L'admission fixe ne donne jamais la parole aux stations exclues. La boucle, lorsque la fenêtre récente livre plus de la moitié des paquets émis, augmente le plafond et laisse de nouvelles stations utiliser la suite des 10~s. Le plafond final de 56, sur la cellule de 100 terminaux à 40~ms, ne signifie pas que 56 stations ont émis ensemble pendant toute la simulation. Le CSV ne garde pas la série temporelle du plafond. La succession des budgets est la lecture compatible avec la loi. Elle devra être confirmée par une trace si un travail ultérieur veut montrer l'occupation instantanée.
+
+\section{Limites communes}
+
+Une seule graine a été utilisée. Les petits écarts, de quelques milliers d'octets, ne portent pas une conclusion statistique. Les grands écarts de la cellule à 100 terminaux et 40~ms sont liés eux aussi à cette graine, même si leur ampleur rend un simple bruit de mesure peu vraisemblable. L'admission suit l'indice de création des stations. Les seuils 0,35 et 0,50 sont des choix. La boucle n'est pas un réseau entraîné. La grille n'est pas un kilomètre carré. La couche physique n'est pas le NR.
+
+\section{Formulation tenable}
+
+Dans un mémoire ou un entretien, la formulation suivante reste exacte. Les laboratoires exécutés comparent trois politiques de charge sur un proxy Wi-Fi 802.11n, pour des grilles de 16 à 100 terminaux espacés de 5~m. L'émission simultanée sature le point d'accès lorsque la grille et le rythme des paquets grandissent. Une admission fixe améliore la fraction des paquets émis qui arrivent et réduit le volume collecté. Une boucle qui ajuste le nombre d'émetteurs selon la livraison récente augmente ce volume sur les cellules chargées du plan, sans servir toute la population, et sans constituer un contrôleur appris ni une simulation IMT-2030 à l'échelle du kilomètre carré.
+
+\section{Où lire le détail}
+
+Le Lab 1 est dans \texttt{docs/latex/rapport\_lab01.pdf}. Le Lab 2, avec l'archive \texttt{UdpClient}, est dans \texttt{rapport\_lab02.pdf}. Le Lab 3, admission fixe, est dans \texttt{rapport\_lab03.pdf}. Le Lab 4, cellule NR de 16 terminaux, est dans \texttt{rapport\_lab04.pdf}. Le Lab 5, boucle fermée, est dans \texttt{rapport\_lab05.pdf}. Le cadre de densité est dans \texttt{docs/CADRE\_IMT2030.md}.
+
+\section{Reproduction}
+
+Depuis la racine \texttt{ns-allinone-3.43}, après copie du scénario du Lab 1 dans le scratch, les campagnes exécutables sont les scripts \texttt{lancer\_campagne.py} des Labs 2, 3 et 5. Le script du Lab 2 écrase l'archive \texttt{UdpClient} et ne la reproduit plus avec le source actuel. Le script du Lab 4 refait seulement la cellule de 16 terminaux. Les grilles plus grandes s'arrêtent dans le RRC. Les PDF se recompilent par deux passages de \texttt{pdflatex} dans \texttt{projet-visuel-imt2030/docs/latex}.
+
+\end{document}

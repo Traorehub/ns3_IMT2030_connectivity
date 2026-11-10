@@ -1,0 +1,205 @@
+Nombre de runs : 12
+[1/12] gridSide=4 intervalMs=40 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 16  (4x4)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 327680
+Offre estimee (octets): 327680
+Taux de livraison     : 1.000
+Evenements throttle   : 4
+Indice Jain (debit)   : 1.000
+Flux IPv4 suivis      : 16
+Plafond final         : 16
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[2/12] gridSide=4 intervalMs=80 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 16  (4x4)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 327680
+Offre estimee (octets): 327680
+Taux de livraison     : 1.000
+Evenements throttle   : 4
+Indice Jain (debit)   : 1.000
+Flux IPv4 suivis      : 16
+Plafond final         : 16
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[3/12] gridSide=4 intervalMs=160 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 16  (4x4)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 327680
+Offre estimee (octets): 327680
+Taux de livraison     : 1.000
+Evenements throttle   : 4
+Indice Jain (debit)   : 1.000
+Flux IPv4 suivis      : 16
+Plafond final         : 16
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[4/12] gridSide=6 intervalMs=40 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 36  (6x6)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 714752
+Offre estimee (octets): 737280
+Taux de livraison     : 0.969
+Evenements throttle   : 32
+Indice Jain (debit)   : 0.993
+Flux IPv4 suivis      : 36
+Plafond final         : 36
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[5/12] gridSide=6 intervalMs=80 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 36  (6x6)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 712192
+Offre estimee (octets): 737280
+Taux de livraison     : 0.966
+Evenements throttle   : 12
+Indice Jain (debit)   : 0.995
+Flux IPv4 suivis      : 36
+Plafond final         : 36
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[6/12] gridSide=6 intervalMs=160 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 36  (6x6)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 723456
+Offre estimee (octets): 737280
+Taux de livraison     : 0.981
+Evenements throttle   : 12
+Indice Jain (debit)   : 0.998
+Flux IPv4 suivis      : 36
+Plafond final         : 36
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[7/12] gridSide=8 intervalMs=40 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 64  (8x8)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 854016
+Offre estimee (octets): 1029632
+Taux de livraison     : 0.829
+Evenements throttle   : 84
+Indice Jain (debit)   : 0.964
+Flux IPv4 suivis      : 52
+Plafond final         : 44
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[8/12] gridSide=8 intervalMs=80 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 64  (8x8)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 745472
+Offre estimee (octets): 1101824
+Taux de livraison     : 0.677
+Evenements throttle   : 63
+Indice Jain (debit)   : 0.939
+Flux IPv4 suivis      : 61
+Plafond final         : 43
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[9/12] gridSide=8 intervalMs=160 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 64  (8x8)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 815616
+Offre estimee (octets): 1244160
+Taux de livraison     : 0.656
+Evenements throttle   : 57
+Indice Jain (debit)   : 0.981
+Flux IPv4 suivis      : 64
+Plafond final         : 45
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[10/12] gridSide=10 intervalMs=40 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 100  (10x10)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 865280
+Offre estimee (octets): 1056256
+Taux de livraison     : 0.819
+Evenements throttle   : 116
+Indice Jain (debit)   : 0.889
+Flux IPv4 suivis      : 56
+Plafond final         : 56
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[11/12] gridSide=10 intervalMs=80 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 100  (10x10)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 718336
+Offre estimee (octets): 1302016
+Taux de livraison     : 0.552
+Evenements throttle   : 101
+Indice Jain (debit)   : 0.855
+Flux IPv4 suivis      : 65
+Plafond final         : 65
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv
+[12/12] gridSide=10 intervalMs=160 policy=feedback
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+
+=== IMT-2030 zone dense (proxy Wi-Fi) ===
+Terminaux : 100  (10x10)
+Politique : feedback  |  duree : 10 s
+
+Octets recus (AP)     : 783360
+Offre estimee (octets): 1504256
+Taux de livraison     : 0.521
+Evenements throttle   : 134
+Indice Jain (debit)   : 0.857
+Flux IPv4 suivis      : 91
+Plafond final         : 54
+
+CSV : ../projet-visuel-imt2030/labs/lab05_ai_native/sorties/resultats.csv

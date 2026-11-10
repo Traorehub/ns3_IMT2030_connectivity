@@ -1,0 +1,56 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\geometry{margin=2.2cm}
+\setlength{\emergencystretch}{2em}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\title{Rapport technique, Lab 4\\
+\large Cellule NR, grille de 16 terminaux\\
+Dépôt \texttt{ns3\_IMT2030\_connectivity}}
+\author{Traorehub, travail de recherche en cours}
+\date{Novembre 2026}
+
+\begin{document}
+\maketitle
+
+\section{Ce qui a été exécuté}
+
+Le module 5G-LENA v3.3.1, étiquette prévue pour ns-3.42, commit \texttt{f13da239}, a été compilé dans l'arbre ns-3.43. Le scénario reprend la grille, le budget et les trois politiques des Labs 3 et 5. La radio est une cellule, à 3,5~GHz, sur 20~MHz, en numérologie 0, en intérieur et en visibilité, sans ombrage. Le planificateur est OFDMA round-robin. Le motif TDD est \texttt{DL|S|UL|UL|UL|DL|S|UL|UL|UL|}. La puissance du gNB est de 30~dBm, celle du terminal de 23~dBm. La capacité de 3~Mbit/s reste le paramètre de la loi $K$. Elle ne règle pas la bande.
+
+La campagne effectivement écrite dans le CSV compte trois runs, tous à 16 terminaux, 40~ms, 10~s et 40 paquets de 512 octets. Le plan complet de 36 runs n'a pas été lancé. Les essais à 36 et à 100 terminaux s'interrompent avant le trafic.
+
+\section{Grille de 16 terminaux}
+
+\begin{center}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Politique & Octets reçus & Taux & Jain & Événements & Plafond \\
+\midrule
+baseline & 327\,680 & 1 & 1 & 0 & 16 \\
+adaptive & 327\,680 & 1 & 1 & 0 & 16 \\
+feedback & 327\,680 & 1 & 1 & 4 & 16 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Les 640 paquets prévus arrivent, soit 16 terminaux fois 40 paquets. Le plafond de la loi vaut 24 à 40~ms, puis il est borné par les 16 terminaux. L'admission fixe ne retire donc personne. La boucle enregistre 4 événements et revient à 16, sans changer le volume. Le même volume, 327\,680 octets, est celui du proxy Wi-Fi sur cette cellule non saturée. À cette charge, changer la couche radio ne change pas le service.
+
+\section{Grilles qui ne passent pas le RRC}
+
+À 36 terminaux, puis à 100 terminaux, le processus s'arrête à 30~ms. L'assertion du RRC idéal indique qu'aucun contexte n'est trouvé pour le RNTI 0, dans \texttt{nr-rrc-protocol-ideal.cc} à la ligne 252. Aucun octet UDP n'est alors compté. Ces deux tailles ne figurent pas dans le CSV. Le défaut appartient à cette combinaison module v3.3.1 et ns-3.43. Il n'a pas été contourné par un chiffre inventé.
+
+\section{Lecture}
+
+La cellule NR de 20~MHz absorbe l'offre de 16 terminaux. Elle ne fournit pas encore la comparaison de charge faite sur le Wi-Fi à 64 et 100 terminaux, parce que ces effectifs n'atteignent pas l'émission. La densité de la grille de 16 terminaux reste d'environ $7\times 10^{4}$ terminaux par kilomètre carré. Elle demeure très en dessous d'un million par kilomètre carré.
+
+\section{Reproduction}
+
+Le script \texttt{labs/lab04\_5g\_lena/scripts/lancer\_campagne.py} refait les trois runs de 16 terminaux. Il faut le module \texttt{contrib/nr} à l'étiquette v3.3.1, puis la cible \texttt{imt2030-nr-gestion}. Le CSV est \texttt{labs/lab04\_5g\_lena/sorties/resultats.csv}.
+
+\end{document}
